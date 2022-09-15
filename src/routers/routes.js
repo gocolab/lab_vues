@@ -5,17 +5,11 @@ const base_path = "";
 const Main = () => {
   return import("../components/Main.vue");
 };
-const Information = () => {
-  return import("../components/Information.vue");
-};
 const UserLogin = () => {
   return import("../components/users/UserLogin.vue");
 };
 const UserRegister = () => {
   return import("../components/users/UserRegister.vue");
-};
-const UnionActivity = () => {
-  return import("../components/unions/UnionActivity.vue");
 };
 const FestivalList = () => {
   return import("../components/festivals/FestivalList.vue");
@@ -37,16 +31,6 @@ const routes = [
     path: base_path + "/main",
     component: Main,
     name: "Main",
-  },
-  {
-    path: base_path + "/UnionActivity",
-    component: UnionActivity,
-    name: "UnionActivity",
-  },
-  {
-    path: base_path + "/information",
-    component: Information,
-    name: "Information",
   },
   {
     path: base_path + "/login",
