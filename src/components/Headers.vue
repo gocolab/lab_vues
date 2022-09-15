@@ -34,6 +34,15 @@
               <i class="bi bi-building"></i>축제 정보
             </button>
           </li>
+          <li class="nav-item">
+            <button
+              class="btn btn-link nav-link"
+              aria-current="page"
+              @click="$router.push({ name: 'TranslatorReady' })"
+            >
+              <i class="bi bi-building"></i>번역 도움이
+            </button>
+          </li>
         </ul>
         <!-- within Model -->
         <div class="col-md-3 text-end">
