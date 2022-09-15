@@ -21,7 +21,7 @@ const TranslatorReady = () => {
   return import("../components/fortranslator/Ready.vue");
 };
 const TranslatorMain = () => {
-  return import("../components/fortranslator/TranslatorMain.vue");
+  return import("../components/fortranslator/Main.vue");
 };
 const NotFound = defineComponent({
   template: "<div>Not Found</div>",

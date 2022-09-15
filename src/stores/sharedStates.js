@@ -9,10 +9,10 @@ const states = reactive({
 });
 
 const translatestates = reactive({
-  source: [],
-  byGoogle: [],
-  byPapago: [],
-  byMe: [],
+  source: "",
+  byGoogle: "",
+  byPapago: "",
+  byMe: "",
 });
 
 export default { states, translatestates };
