@@ -1,32 +1,14 @@
 <template>
   <div class="row">
     <div class="col-6">
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#navbar-example2"
-        data-bs-smooth-scroll="true"
-        class="scrollspy-example p-3 rounded-2 border"
-        tabindex="0"
-      >
-        {{ stores.translatestates.source }}
+      <div class="scrollspy-example bg-light p-3 rounded-2 border">
+        {{ source }}
       </div>
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#navbar-example2"
-        data-bs-smooth-scroll="true"
-        class="scrollspy-example bg-light p-3 rounded-2 border"
-        tabindex="0"
-      >
-        {{ stores.translatestates.byFirst }}
+      <div class="scrollspy-example p-3 rounded-2 border">
+        {{ byFirst }}
       </div>
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#navbar-example2"
-        data-bs-smooth-scroll="true"
-        class="scrollspy-example bg-light p-3 rounded-2 border"
-        tabindex="0"
-      >
-        {{ stores.translatestates.bySecond }}
+      <div class="scrollspy-example p-3 rounded-2 border">
+        {{ bySecond }}
       </div>
     </div>
     <div class="col-6">
@@ -45,10 +27,59 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
+import { inject, onMounted, reactive } from "vue";
 const stores = inject("stores");
 
-function writeTranslatingTerms() {}
+const states = reactive({
+  source: "",
+  byFirst: "",
+  bySecond: "",
+});
+
+function splitStringToArray(str) {
+  const regexp = /(?<=[^0-9])[\.]/;
+  const array_list = str.split(regexp);
+  array_list.forEach((element, index) => {
+    array_list[index] = element + ".";
+  });
+
+  return array_list;
+}
+
+function wrapBrightTag(element) {
+  const brightTag = `<span class='text-success'>${element}</span>`;
+  return brightTag;
+}
+
+function currentLineMark(array, index) {
+  array[index] = wrapBrightTag(array[index]);
+}
+
+function changeLineMark() {
+  currentLineMark(states.source, currentLineNumber);
+  currentLineMark(states.byFirst, currentLineNumber);
+  currentLineMark(states.bySecond, currentLineNumber);
+}
+// 변수 선언
+let currentLineNumber = 0;
+
+states.source = splitStringToArray(stores.translatestates.source);
+states.byFirst = splitStringToArray(stores.translatestates.byFirst);
+states.bySecond = splitStringToArray(stores.translatestates.bySecond);
+
+changeLineMark();
+
+function writeTranslatingTerms(event) {
+  const keyCode = event.keyCode;
+  switch (keyCode) {
+    case 190: // Period
+      console.log(`keyCode : ${keyCode}`);
+      break;
+    case 8: // backspace
+      console.log(`keyCode : ${keyCode}`);
+      break;
+  }
+}
 function moveTranslatingTerms() {}
 </script>
 
