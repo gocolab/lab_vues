@@ -17,7 +17,7 @@
         class="scrollspy-example bg-light p-3 rounded-2 border"
         tabindex="0"
       >
-        {{ stores.translatestates.byGoogle }}
+        {{ stores.translatestates.byFirst }}
       </div>
       <div
         data-bs-spy="scroll"
@@ -26,7 +26,7 @@
         class="scrollspy-example bg-light p-3 rounded-2 border"
         tabindex="0"
       >
-        {{ stores.translatestates.byPapago }}
+        {{ stores.translatestates.bySecond }}
       </div>
     </div>
     <div class="col-6">

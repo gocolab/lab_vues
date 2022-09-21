@@ -1,18 +1,10 @@
 import { reactive, readonly } from "vue";
 
-const states = reactive({
-  isLoading: false,
-  people: {
-    name: "",
-    description: "",
-  },
-});
-
 const translatestates = reactive({
   source: "",
-  byGoogle: "",
-  byPapago: "",
+  byFirst: "",
+  bySecond: "",
   byMe: "",
 });
 
-export default { states, translatestates };
+export default { translatestates };
