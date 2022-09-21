@@ -38,7 +38,7 @@
             <button
               class="btn btn-link nav-link"
               aria-current="page"
-              @click="$router.push({ name: 'TranslatorReady' })"
+              @click="$router.push({ name: 'TranslationReady' })"
             >
               <i class="bi bi-building"></i>번역 도움이
             </button>

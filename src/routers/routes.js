@@ -17,11 +17,11 @@ const FestivalList = () => {
 const FestivalView = () => {
   return import("../components/festivals/FestivalView.vue");
 };
-const TranslatorReady = () => {
-  return import("../components/fortranslator/Ready.vue");
+const TranslationReady = () => {
+  return import("../components/translation/Ready.vue");
 };
-const TranslatorMain = () => {
-  return import("../components/fortranslator/Main.vue");
+const TranslationMain = () => {
+  return import("../components/translation/Main.vue");
 };
 const NotFound = defineComponent({
   template: "<div>Not Found</div>",
@@ -59,14 +59,14 @@ const routes = [
     name: "FestivalView",
   },
   {
-    path: base_path + "/translatorReady",
-    component: TranslatorReady,
-    name: "TranslatorReady",
+    path: base_path + "/TranslationReady",
+    component: TranslationReady,
+    name: "TranslationReady",
   },
   {
-    path: base_path + "/translatorMain",
-    component: TranslatorMain,
-    name: "TranslatorMain",
+    path: base_path + "/TranslationMain",
+    component: TranslationMain,
+    name: "TranslationMain",
   },
 ];
 

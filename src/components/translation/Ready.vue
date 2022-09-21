@@ -52,7 +52,7 @@
   <div class="text-center">
     <button
       class="btn btn-outline-primary"
-      @click="$router.push({ name: 'TranslatorMain' })"
+      @click="$router.push({ name: 'TranslationMain' })"
     >
       Do Translation
     </button>
