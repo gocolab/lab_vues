@@ -2,13 +2,13 @@
   <div class="row">
     <div class="col-6">
       <div class="scrollspy-example bg-light p-3 rounded-2 border">
-        {{ source }}
+        {{ states.source }}
       </div>
       <div class="scrollspy-example p-3 rounded-2 border">
-        {{ byFirst }}
+        {{ states.byFirst }}
       </div>
       <div class="scrollspy-example p-3 rounded-2 border">
-        {{ bySecond }}
+        {{ states.bySecond }}
       </div>
     </div>
     <div class="col-6">
@@ -19,7 +19,7 @@
           @keydown="writeTranslatingTerms"
           @click="moveTranslatingTerms"
           placeholder="Choose a term to translate..."
-          v-model="stores.translatestates.byMe"
+          v-model="states.source"
         ></textarea>
       </div>
     </div>
@@ -34,6 +34,7 @@ const states = reactive({
   source: "",
   byFirst: "",
   bySecond: "",
+  byMe: "",
 });
 
 function splitStringToArray(str) {
@@ -42,7 +43,7 @@ function splitStringToArray(str) {
   array_list.forEach((element, index) => {
     array_list[index] = element + ".";
   });
-
+  console.log(array_list);
   return array_list;
 }
 
@@ -63,11 +64,17 @@ function changeLineMark() {
 // 변수 선언
 let currentLineNumber = 0;
 
-states.source = splitStringToArray(stores.translatestates.source);
-states.byFirst = splitStringToArray(stores.translatestates.byFirst);
-states.bySecond = splitStringToArray(stores.translatestates.bySecond);
+function initial() {
+  states.source = splitStringToArray(stores.translatestates.source);
+  states.byFirst = splitStringToArray(stores.translatestates.byFirst);
+  states.bySecond = splitStringToArray(stores.translatestates.bySecond);
+}
 
-changeLineMark();
+onMounted(() => {
+  initial();
+  changeLineMark();
+  console.log();
+});
 
 function writeTranslatingTerms(event) {
   const keyCode = event.keyCode;
