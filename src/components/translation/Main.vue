@@ -1,21 +1,43 @@
 <template>
   <div class="row">
     <div class="col-6">
-      <div
-        class="scrollspy-example bg-light p-3 rounded-2 border"
-        v-html="states.source"
-      ></div>
-      <div
-        class="scrollspy-example p-3 rounded-2 border"
-        v-html="states.byFirst"
-      ></div>
-      <div
-        class="scrollspy-example p-3 rounded-2 border"
-        v-html="states.bySecond"
-      ></div>
+      <div class="scrollspy-example bg-light p-3 rounded-2 border">
+        <template v-for="(term, index) in states.source" :key="index">
+          <span
+            :class="
+              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
+            "
+          >
+            {{ term }}
+          </span>
+        </template>
+      </div>
+      <div class="scrollspy-example p-3 rounded-2 border">
+        <template v-for="(term, index) in states.byFirst" :key="index">
+          <span
+            :class="
+              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
+            "
+          >
+            {{ term }}
+          </span>
+        </template>
+      </div>
+      <div class="scrollspy-example p-3 rounded-2 border">
+        <template v-for="(term, index) in states.bySecond" :key="index">
+          <span
+            :class="
+              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
+            "
+          >
+            {{ term }}
+          </span>
+        </template>
+      </div>
     </div>
     <div class="col-6">
       <div class="input-group">
+        <span>{{ states.currentTermNumber }}, {{ termArraySize }}</span>
         <textarea
           class="form-control"
           rows="25"
@@ -38,20 +60,24 @@ const states = reactive({
   byFirst: "",
   bySecond: "",
   byMe: "",
+  currentTermNumber: 0, // 번역 위치
 });
 
 // 구분값들(.) 통한 문장들을 배열로 만듬.
 function splitTermsToArray(terms) {
   const regexp = /(?<=[^0-9])[\.]/;
   const arrays = terms.split(regexp);
+  arrays.forEach((element, index) => {
+    arrays[index] = arrays[index].trim();
+    // delete term with null
+    if (arrays[index].length <= 0) {
+      arrays.splice(index, 1);
+    } else {
+      // add '.'
+      arrays[index] = arrays[index] + ". ";
+    }
+  });
   return arrays;
-}
-
-// 작성 중인 문단 위치 표시 위해 Html Tag로 쌈.
-function wrapBrightTag(text) {
-  const brightWithTag = `<span class='bg-primary text-white' ref="Btn" @click='chooseTerm(this)'>${text}.</span>`;
-  // this.refs.Btn.click();
-  return brightWithTag;
 }
 
 // 작성 중인 문단 위치 표시
@@ -61,22 +87,13 @@ function currentTermMark(arrayTerms, index) {
   return arrays;
 }
 
-// 작성 중인 문장 위치 표시한 String 반환
-function currentTermWithMark(terms, index) {
-  const arrays = splitTermsToArray(terms);
-  const arrayswithmark = currentTermMark(arrays, index);
-  const stringwithmark = arrayswithmark.join(".");
-  return stringwithmark;
-}
-
-function moveCurrentTermWithMark(index) {
-  states.source = currentTermWithMark(stores.translatestates.source, index);
-  states.byFirst = currentTermWithMark(stores.translatestates.byFirst, index);
-  states.bySecond = currentTermWithMark(stores.translatestates.bySecond, index);
+function splitAllTermsToArray() {
+  states.source = splitTermsToArray(stores.translatestates.source);
+  states.byFirst = splitTermsToArray(stores.translatestates.byFirst);
+  states.bySecond = splitTermsToArray(stores.translatestates.bySecond);
 }
 // 변수 선언
-let currentTermNumber = 0; // 번역 위치
-let termArraySize = 0; // 문장 갯수
+let termArraySize = measureTermsSize(stores.translatestates.source); // 문장 갯수
 let lastChar = "";
 
 // 문장 갯수 구하기
@@ -86,8 +103,8 @@ function measureTermsSize(terms) {
 
 // 작성 문장 표시 초기화
 function initial() {
-  moveCurrentTermWithMark(currentTermNumber);
-  termArraySize = measureTermsSize(stores.translatestates.source);
+  splitAllTermsToArray();
+  // termArraySize = measureTermsSize(stores.translatestates.source);
 }
 
 onMounted(() => {
@@ -100,30 +117,26 @@ function getLastChar(terms) {
   return charactor;
 }
 
-// 2byte 문자형식 입력 시 사용
-function inputEventValue(event) {
-  console.log(`inputEventValue : event.targt.value ${event.targt.value}`);
-}
+// 입력 시 사용
 function writeTranslatingTerms(event) {
   const keyCode = event.keyCode;
   // console.log(`keyCode : ${keyCode}`);
   switch (keyCode) {
-    case 190: // Period
-    case 46: // Period
-      if (currentTermNumber <= termArraySize) {
-        currentTermNumber++;
-        moveCurrentTermWithMark(currentTermNumber);
+    case 190: // Period - keypress event
+    case 46: // Period - keydown event
+      if (states.currentTermNumber <= termArraySize) {
+        states.currentTermNumber++;
       } else {
         // 번역 대상 글보다 많은 경우 '.' 입력 취소;
         event.preventDefault();
       }
       break;
-    case 8: // backspace
-      lastChar = getLastChar(states.byMe);
-      console.log(`lastChar : ${lastChar}`);
-      if ((lastChar == ".") & (currentTermNumber > 0)) {
-        currentTermNumber--;
-        moveCurrentTermWithMark(currentTermNumber);
+    case 8: // backspace - keypress event
+      // if ((lastChar == ".") & (states.currentTermNumber > 0)) {
+      if (states.currentTermNumber > 0) {
+        states.currentTermNumber--;
+      } else {
+        // ToDo 번역 완료 메세지 표시(save 여부 표시)
       }
       break;
   }
@@ -131,7 +144,7 @@ function writeTranslatingTerms(event) {
   console.log(
     `writeTranslatingTerms : keyCode ${keyCode}, getLastChar ${getLastChar(
       states.byMe
-    )}, currentNum ${currentTermNumber}`
+    )}, currentNum ${states.currentTermNumber}`
   );
 }
 function moveTranslatingTerms() {}
