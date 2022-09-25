@@ -7,7 +7,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   if (command === "dev") {
     return defineConfig({
       plugins: [vue()],
-      base: "", // for build
+      base: "/", // for build
       // base: process.env.VITE_BASE_PATH, // for build
     });
   } else {
