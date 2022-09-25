@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 
-const base_path = "/project_yojulab_front";
+const base_path = "";
 // lazy load components for better performance
 const Main = () => {
   return import("../components/Main.vue");
