@@ -4,31 +4,25 @@
       <div class="scrollspy-example bg-light p-3 rounded-2 border">
         <template v-for="(term, index) in states.source" :key="index">
           <span
-            :class="
-              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
-            "
+            :class="states.currentTermNumber === index ? termMarkClass : ''"
           >
             {{ term }}
           </span>
         </template>
       </div>
-      <div class="scrollspy-example p-3 rounded-2 border">
+      <div class="scrollspy-example p-3 rounded-2 border" @click="chooseTerm">
         <template v-for="(term, index) in states.byFirst" :key="index">
           <span
-            :class="
-              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
-            "
+            :class="states.currentTermNumber === index ? termMarkClass : ''"
           >
             {{ term }}
           </span>
         </template>
       </div>
-      <div class="scrollspy-example p-3 rounded-2 border">
+      <div class="scrollspy-example p-3 rounded-2 border" @click="chooseTerm">
         <template v-for="(term, index) in states.bySecond" :key="index">
           <span
-            :class="
-              states.currentTermNumber === index ? 'bg-primary  text-white' : ''
-            "
+            :class="states.currentTermNumber === index ? termMarkClass : ''"
           >
             {{ term }}
           </span>
@@ -36,8 +30,8 @@
       </div>
     </div>
     <div class="col-6">
+      <span>{{ states.currentTermNumber }}, {{ termArraySize }}</span>
       <div class="input-group">
-        <span>{{ states.currentTermNumber }}, {{ termArraySize }}</span>
         <textarea
           class="form-control"
           rows="25"
@@ -80,19 +74,13 @@ function splitTermsToArray(terms) {
   return arrays;
 }
 
-// 작성 중인 문단 위치 표시
-function currentTermMark(arrayTerms, index) {
-  const arrays = arrayTerms;
-  arrays[index] = wrapBrightTag(arrays[index]);
-  return arrays;
-}
-
 function splitAllTermsToArray() {
   states.source = splitTermsToArray(stores.translatestates.source);
   states.byFirst = splitTermsToArray(stores.translatestates.byFirst);
   states.bySecond = splitTermsToArray(stores.translatestates.bySecond);
 }
 // 변수 선언
+const termMarkClass = "bg-primary  text-white";
 let termArraySize = measureTermsSize(stores.translatestates.source); // 문장 갯수
 let lastChar = "";
 
@@ -104,7 +92,6 @@ function measureTermsSize(terms) {
 // 작성 문장 표시 초기화
 function initial() {
   splitAllTermsToArray();
-  // termArraySize = measureTermsSize(stores.translatestates.source);
 }
 
 onMounted(() => {
@@ -119,40 +106,41 @@ function getLastChar(terms) {
 
 // 입력 시 사용
 function writeTranslatingTerms(event) {
-  const keyCode = event.keyCode;
-  // console.log(`keyCode : ${keyCode}`);
-  switch (keyCode) {
+  const keyboardCode = event.code;
+  // console.log(
+  //   `KeyboardEvent: key='${event.key}' | code='${event.code}' | location=${event.location}`
+  // );
+  switch (keyboardCode) {
     case 190: // Period - keypress event
-    case 46: // Period - keydown event
+    case "Period": // Period - keydown event
       if (states.currentTermNumber <= termArraySize) {
         states.currentTermNumber++;
       } else {
         // 번역 대상 글보다 많은 경우 '.' 입력 취소;
         event.preventDefault();
+        // ToDo 번역 완료 메세지 표시(save 여부 표시)
       }
       break;
-    case 8: // backspace - keypress event
-      // if ((lastChar == ".") & (states.currentTermNumber > 0)) {
-      if (states.currentTermNumber > 0) {
+    case "Backspace": // backspace - keypress event
+      lastChar = getLastChar(states.byMe);
+      console.log(`lastChar : ${lastChar}`);
+      if ((lastChar == ".") & (states.currentTermNumber > 0)) {
         states.currentTermNumber--;
-      } else {
-        // ToDo 번역 완료 메세지 표시(save 여부 표시)
       }
       break;
   }
   // Event 처리 완료 후 html에 적용됨, 현재 입력한 값은 변수에 적용되지 않음.
-  console.log(
-    `writeTranslatingTerms : keyCode ${keyCode}, getLastChar ${getLastChar(
-      states.byMe
-    )}, currentNum ${states.currentTermNumber}`
-  );
 }
 function moveTranslatingTerms() {}
 
 // 번역된 글 중 선택해 작성 글에 넣기
 function chooseTerm(event) {
-  console.log(`chooseTerm : ${event.target.text()}`);
-  states.byMe = states.byMe + event.target.text();
+  const element = event.target;
+  const classname = element.className;
+  if (classname.includes(termMarkClass)) {
+    states.byMe = states.byMe + element.textContent;
+    states.currentTermNumber++;
+  }
 }
 </script>
 
