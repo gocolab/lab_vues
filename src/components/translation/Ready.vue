@@ -9,7 +9,7 @@
           <div class="form-group">
             <textarea
               class="form-control"
-              rows="10"
+              :rows="rows"
               v-model="stores.translatestates.source"
             ></textarea>
           </div>
@@ -25,7 +25,7 @@
           <div class="form-group">
             <textarea
               class="form-control"
-              rows="10"
+              :rows="rows"
               v-model="stores.translatestates.byFirst"
             ></textarea>
           </div>
@@ -41,7 +41,7 @@
           <div class="form-group">
             <textarea
               class="form-control"
-              rows="10"
+              :rows="rows"
               v-model="stores.translatestates.bySecond"
             ></textarea>
           </div>
@@ -62,6 +62,7 @@
 <script setup>
 import { inject, onMounted } from "vue";
 const stores = inject("stores");
+const rows = 20;
 
 function initialLongTerms() {
   const source =
@@ -93,7 +94,8 @@ function initialShortTerms() {
 }
 
 onMounted(() => {
-  initialShortTerms();
+  // initialShortTerms();
+  // initialShortTerms();
 });
 </script>
 
