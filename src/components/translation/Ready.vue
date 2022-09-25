@@ -95,7 +95,7 @@ function initialShortTerms() {
 
 onMounted(() => {
   // initialShortTerms();
-  // initialShortTerms();
+  initialLongTerms();
 });
 </script>
 
