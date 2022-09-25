@@ -1,4 +1,4 @@
-### [github pages](https://yojulab.github.io/project_yojulab_front/)
+### [github pages URI](https://yojulab.github.io/project_yojulab_front/)
 
 
 ## Program
