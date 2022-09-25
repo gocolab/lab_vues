@@ -30,7 +30,6 @@
       </div>
     </div>
     <div class="col-6">
-      <span>{{ states.currentTermNumber }}, {{ termArraySize }}</span>
       <div class="input-group">
         <textarea
           class="form-control"
