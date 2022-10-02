@@ -11,126 +11,16 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">1</th>
-        <td>2022 제9회 라틴아메리카축제</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>02-2241-6381,3,4</td>
-        <td>서울특별시 성북구</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">2</th>
-        <td>백두대간 산림치유 페스티벌</td>
-        <td>20220930</td>
-        <td>20221002</td>
-        <td>054-639-3400</td>
-        <td>경상북도 영주시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">3</th>
-        <td>제3회 안양청년축제 ‘안양랜드’</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>031-8045-5786</td>
-        <td>경기도 안양시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">4</th>
-        <td>2022 제9회 라틴아메리카축제</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>02-2241-6381,3,4</td>
-        <td>서울특별시 성북구</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">5</th>
-        <td>백두대간 산림치유 페스티벌</td>
-        <td>20220930</td>
-        <td>20221002</td>
-        <td>054-639-3400</td>
-        <td>경상북도 영주시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">6</th>
-        <td>제3회 안양청년축제 ‘안양랜드’</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>031-8045-5786</td>
-        <td>경기도 안양시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">7</th>
-        <td>2022 제9회 라틴아메리카축제</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>02-2241-6381,3,4</td>
-        <td>서울특별시 성북구</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">8</th>
-        <td>백두대간 산림치유 페스티벌</td>
-        <td>20220930</td>
-        <td>20221002</td>
-        <td>054-639-3400</td>
-        <td>경상북도 영주시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">9</th>
-        <td>제3회 안양청년축제 ‘안양랜드’</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>031-8045-5786</td>
-        <td>경기도 안양시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">10</th>
-        <td>2022 제9회 라틴아메리카축제</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>02-2241-6381,3,4</td>
-        <td>서울특별시 성북구</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">11</th>
-        <td>백두대간 산림치유 페스티벌</td>
-        <td>20220930</td>
-        <td>20221002</td>
-        <td>054-639-3400</td>
-        <td>경상북도 영주시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">12</th>
-        <td>제3회 안양청년축제 ‘안양랜드’</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>031-8045-5786</td>
-        <td>경기도 안양시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">13</th>
-        <td>2022 제9회 라틴아메리카축제</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>02-2241-6381,3,4</td>
-        <td>서울특별시 성북구</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">14</th>
-        <td>백두대간 산림치유 페스티벌</td>
-        <td>20220930</td>
-        <td>20221002</td>
-        <td>054-639-3400</td>
-        <td>경상북도 영주시</td>
-      </tr>
-      <tr @click="$router.push({ name: 'FestivalView' })">
-        <th scope="row">15</th>
-        <td>제3회 안양청년축제 ‘안양랜드’</td>
-        <td>20220917</td>
-        <td>20220917</td>
-        <td>031-8045-5786</td>
-        <td>경기도 안양시</td>
-      </tr>
+      <template v-for="(item, index) in states.currentPageList" :key="index">
+        <tr @click="$router.push({ name: 'FestivalView' })">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ item.title }}</td>
+          <td>{{ item.eventstartdate }}</td>
+          <td>{{ item.eventenddate }}</td>
+          <td>{{ item.tel }}</td>
+          <td>{{ item.addr1 }}</td>
+        </tr>
+      </template>
     </tbody>
   </table>
   <nav aria-label="Page navigation example">
@@ -138,11 +28,13 @@
       <li class="page-item disabled">
         <a class="page-link">Previous</a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
+      <template v-for="(number, index) in states.totalPageNo" :key="index">
+        <li class="page-item">
+          <a class="page-link" @click="chooseCurrentPage(number)">{{
+            number
+          }}</a>
+        </li>
+      </template>
       <li class="page-item">
         <a class="page-link" href="#">Next</a>
       </li>
@@ -150,6 +42,100 @@
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { inject, onMounted, reactive } from "vue";
+const states = reactive({
+  numOfRows: 10,
+  currentPageNo: 1,
+  arrange: "C",
+  totalCount: 0,
+  totalPageNo: 0, // totalCount / numOfRows
+  currentPageList: [],
+});
+function getFromDayWithFormat() {
+  const now = new Date();
+  const formats = "YYYYMMDD";
+  const fromdayWithFormat = moment(now).format(formats);
+  return fromdayWithFormat;
+}
+function getCurrentPageInfoFromApi(currentPageNo = 1) {
+  states.currentPageNo = currentPageNo;
+  eventStartDate = getFromDayWithFormat();
+  // GET request for remote image in node.js
+  // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
+  axios({
+    method: "get",
+    url: "https://apis.data.go.kr/B551011/KorService/searchFestival", // 행사정보조회
+    data: {
+      serviceKey:
+        "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg%3D%3D",
+      numOfRows: states.numOfRows, // 한페이지결과수
+      pageNo: states.currentPageNo, // 페이지번호
+      MobileOS: "ETC",
+      MobileApp: "AppTest",
+      _type: "json",
+      listYN: "Y",
+      arrange: states.arrange, // 정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)대표이미지가반드시있는정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)
+      eventStartDate: eventStartDate, // 행사시작일(형식 :YYYYMMDD)
+    },
+  })
+    .then(function (response) {
+      return response.data.body;
+    })
+    .catch(function (error) {
+      // https://axios-http.com/docs/handling_errors
+      console.log(error.toJSON());
+    });
+}
+function getTotalCountFromApi() {
+  const datas = getCurrentPageInfoFromApi();
+  console.log(`getTotalCountFromApi() : ${datas}`);
+  const totalCount = datas.totalCount;
+  return totalCount;
+}
+// page번호 선택
+function chooseCurrentPage(currentPageNo = 1) {
+  states.currentPageNo = currentPageNo;
+  const datas = getCurrentPageInfoFromApi(states.currentPageNo);
+  datas.forEach((element, index) => {
+    let item = {
+      addr1: element.addr1,
+      addr2: element.addr2,
+      areacode: element.areacode,
+      booktour: element.booktour,
+      cat1: element.cat1,
+      cat2: element.cat2,
+      cat3: element.cat3,
+      contentid: element.contentid,
+      contenttypeid: element.contenttypeid,
+      createdtime: element.createdtime,
+      eventstartdate: element.eventstartdate,
+      eventenddate: element.eventenddate,
+      firstimage: element.firstimage,
+      firstimage2: element.firstimage2,
+      mapx: element.mapx,
+      mapy: element.mapy,
+      mlevel: element.mlevel,
+      modifiedtime: element.modifiedtime,
+      readcount: element.readcount,
+      sigungucode: element.sigungucode,
+      tel: element.tel,
+      title: element.title,
+    };
+    states.currentPageList.append(item);
+  });
+}
+
+function changeNumOfRows(numOfRows) {
+  states.numOfRows = numOfRows;
+  states.totalCount = getTotalCountFromApi();
+  states.totalPageNo = states.totalCount / states.numOfRows;
+  chooseCurrentPage();
+}
+
+onMounted(() => {
+  changeNumOfRows(states.numOfRows);
+});
+</script>
 
 <style></style>
