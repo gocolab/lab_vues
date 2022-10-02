@@ -12,7 +12,17 @@
     </thead>
     <tbody class="table-group-divider">
       <template v-for="(item, index) in states.currentPageList" :key="index">
-        <tr @click="$router.push({ name: 'FestivalView' })">
+        <tr
+          @click="
+            $router.push({
+              name: 'FestivalView',
+              query: {
+                contentId: item.contentId,
+                contentTypeId: item.contentTypeId,
+              },
+            })
+          "
+        >
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.title }}</td>
           <td>{{ item.eventstartdate }}</td>
@@ -98,30 +108,31 @@ function chooseCurrentPage(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
   const datas = getCurrentPageInfoFromApi(states.currentPageNo);
   datas.forEach((element, index) => {
-    let item = {
-      addr1: element.addr1,
-      addr2: element.addr2,
-      areacode: element.areacode,
-      booktour: element.booktour,
-      cat1: element.cat1,
-      cat2: element.cat2,
-      cat3: element.cat3,
-      contentid: element.contentid,
-      contenttypeid: element.contenttypeid,
-      createdtime: element.createdtime,
-      eventstartdate: element.eventstartdate,
-      eventenddate: element.eventenddate,
-      firstimage: element.firstimage,
-      firstimage2: element.firstimage2,
-      mapx: element.mapx,
-      mapy: element.mapy,
-      mlevel: element.mlevel,
-      modifiedtime: element.modifiedtime,
-      readcount: element.readcount,
-      sigungucode: element.sigungucode,
-      tel: element.tel,
-      title: element.title,
-    };
+    // let item = {
+    //   addr1: element.addr1,
+    //   addr2: element.addr2,
+    //   areacode: element.areacode,
+    //   booktour: element.booktour,
+    //   cat1: element.cat1,
+    //   cat2: element.cat2,
+    //   cat3: element.cat3,
+    //   contentid: element.contentid,
+    //   contenttypeid: element.contenttypeid,
+    //   createdtime: element.createdtime,
+    //   eventstartdate: element.eventstartdate,
+    //   eventenddate: element.eventenddate,
+    //   firstimage: element.firstimage,
+    //   firstimage2: element.firstimage2,
+    //   mapx: element.mapx,
+    //   mapy: element.mapy,
+    //   mlevel: element.mlevel,
+    //   modifiedtime: element.modifiedtime,
+    //   readcount: element.readcount,
+    //   sigungucode: element.sigungucode,
+    //   tel: element.tel,
+    //   title: element.title,
+    // };
+    let item = { ...element };
     states.currentPageList.append(item);
   });
 }

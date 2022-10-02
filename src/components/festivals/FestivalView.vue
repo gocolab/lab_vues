@@ -65,6 +65,40 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from "axios";
+import { inject, onMounted, reactive } from "vue";
+const states = reactive({
+  content: {},
+});
+function getDetailContent() {
+  contentId = $router.query.contentId;
+  contentTypeId = $router.query.contentTypeId;
+  axios({
+    method: "get",
+    url: "https://apis.data.go.kr/B551011/KorService/detailIntro", //  행사상세정보조회
+    data: {
+      serviceKey:
+        "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg%3D%3D",
+      MobileOS: "ETC",
+      MobileApp: "AppTest",
+      _type: "json",
+      contentId: contentId,
+      contentTypeId: contentTypeId,
+    },
+  })
+    .then(function (response) {
+      return response.data.body;
+    })
+    .catch(function (error) {
+      // https://axios-http.com/docs/handling_errors
+      console.log(error.toJSON());
+    });
+}
+onMounted(() => {
+  const datas = getDetailContent();
+  states.content = { ...datas.items.item };
+});
+</script>
 
 <style></style>
