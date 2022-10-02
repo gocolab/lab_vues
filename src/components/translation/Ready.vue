@@ -3,7 +3,7 @@
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-          <h4 class="my-0 fw-normal">원본</h4>
+          <h4 class="my-0 fw-normal">원래 문장</h4>
         </div>
         <div class="card-body">
           <div class="form-group">
@@ -19,7 +19,7 @@
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-          <h4 class="my-0 fw-normal">by Google</h4>
+          <h4 class="my-0 fw-normal">번역 문장 1</h4>
         </div>
         <div class="card-body">
           <div class="form-group">
@@ -35,7 +35,7 @@
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-          <h4 class="my-0 fw-normal">by Papago</h4>
+          <h4 class="my-0 fw-normal">번역 문장 2</h4>
         </div>
         <div class="card-body">
           <div class="form-group">
