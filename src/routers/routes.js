@@ -11,22 +11,53 @@ const UserLogin = () => {
 const UserRegister = () => {
   return import("../components/users/UserRegister.vue");
 };
+
+// Festival - Toys
 const FestivalList = () => {
   return import("../components/festivals/FestivalList.vue");
 };
 const FestivalView = () => {
   return import("../components/festivals/FestivalView.vue");
 };
+
+// Lessons - Toys
 const TranslationReady = () => {
   return import("../components/translation/Ready.vue");
 };
 const TranslationMain = () => {
   return import("../components/translation/Main.vue");
 };
+
+// Lessons - Toys
+const LessonsList = () => {
+  return import("../components/lessons/LessonList_html.vue");
+};
+const LessonsLesson = () => {
+  return import("../components/lessons/Lesson_html.vue");
+};
+const LessonsToyProjectList = () => {
+  return import("../components/lessons/ToyProjectList_html.vue");
+};
+
 const NotFound = defineComponent({
   template: "<div>Not Found</div>",
 });
 const routes = [
+  {
+    path: base_path + "/LessonsToyProjectList",
+    component: LessonsToyProjectList,
+    name: "LessonsToyProjectList",
+  },
+  {
+    path: base_path + "/LessonsLesson",
+    component: LessonsLesson,
+    name: "LessonsLesson",
+  },
+  {
+    path: base_path + "/LessonsList",
+    component: LessonsList,
+    name: "LessonsList",
+  },
   {
     path: base_path + "/:pathMatch(.*)*",
     name: "NotFound",
