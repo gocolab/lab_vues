@@ -20,7 +20,11 @@ const FestivalView = () => {
   return import("../components/festivals/FestivalView.vue");
 };
 
-// Lessons - Toys
+// Toys List
+const LessonsToyProjectList = () => {
+  return import("../components/lessons/ToyProjectList_html.vue");
+};
+// Translation - Toys
 const TranslationReady = () => {
   return import("../components/translation/Ready.vue");
 };
@@ -28,15 +32,12 @@ const TranslationMain = () => {
   return import("../components/translation/Main.vue");
 };
 
-// Lessons - Toys
+// Lessons List
 const LessonsList = () => {
   return import("../components/lessons/LessonList_html.vue");
 };
 const LessonsLesson = () => {
   return import("../components/lessons/Lesson_html.vue");
-};
-const LessonsToyProjectList = () => {
-  return import("../components/lessons/ToyProjectList_html.vue");
 };
 
 const NotFound = defineComponent({

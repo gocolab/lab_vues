@@ -29,6 +29,24 @@
             <button
               class="btn btn-link nav-link"
               aria-current="page"
+              @click="$router.push({ name: 'LessonsList' })"
+            >
+              <i class="bi bi-building"></i>강의들
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="btn btn-link nav-link"
+              aria-current="page"
+              @click="$router.push({ name: 'LessonsToyProjectList' })"
+            >
+              <i class="bi bi-building"></i>구현 예제
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="btn btn-link nav-link"
+              aria-current="page"
               @click="$router.push({ name: 'FestivalList' })"
             >
               <i class="bi bi-building"></i>축제 정보
