@@ -42,6 +42,51 @@
           <button type="button" class="btn btn-outline-primary btn-lg">
             CSS<span class="badge bg-secondary"> 9 </span>
           </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            네트워크<span class="badge bg-secondary"> 8 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            HTML<span class="badge bg-secondary">4</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            CSS<span class="badge bg-secondary"> 9 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            네트워크<span class="badge bg-secondary"> 8 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            HTML<span class="badge bg-secondary">4</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            CSS<span class="badge bg-secondary"> 9 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            네트워크<span class="badge bg-secondary"> 8 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            HTML<span class="badge bg-secondary">4</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            CSS<span class="badge bg-secondary"> 9 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            네트워크<span class="badge bg-secondary"> 8 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            HTML<span class="badge bg-secondary">4</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            CSS<span class="badge bg-secondary"> 9 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            네트워크<span class="badge bg-secondary"> 8 </span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            HTML<span class="badge bg-secondary">4</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-lg">
+            CSS<span class="badge bg-secondary"> 9 </span>
+          </button>
         </td>
       </tr>
       <tr>

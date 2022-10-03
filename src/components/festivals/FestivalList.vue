@@ -54,6 +54,9 @@
 
 <script setup>
 import { inject, onMounted, reactive } from "vue";
+import moment from "moment";
+import axios from "axios";
+
 const states = reactive({
   numOfRows: 10,
   currentPageNo: 1,
@@ -62,6 +65,7 @@ const states = reactive({
   totalPageNo: 0, // totalCount / numOfRows
   currentPageList: [],
 });
+
 function getFromDayWithFormat() {
   const now = new Date();
   const formats = "YYYYMMDD";
@@ -70,12 +74,16 @@ function getFromDayWithFormat() {
 }
 function getCurrentPageInfoFromApi(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
-  eventStartDate = getFromDayWithFormat();
+  const eventStartDate = getFromDayWithFormat();
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   axios({
     method: "get",
-    url: "https://apis.data.go.kr/B551011/KorService/searchFestival", // 행사정보조회
+    url: "[https://apis.data.go.kr](https://apis.data.go.kr)/B551011/KorService/searchFestival", // 행사정보조회
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*", // Could work and fix the previous problem, but not in all APIs
+    },
     data: {
       serviceKey:
         "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg%3D%3D",
@@ -90,6 +98,7 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
     },
   })
     .then(function (response) {
+      console.log(`axios : ${response.data.body}`);
       return response.data.body;
     })
     .catch(function (error) {
@@ -100,48 +109,53 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
 function getTotalCountFromApi() {
   const datas = getCurrentPageInfoFromApi();
   console.log(`getTotalCountFromApi() : ${datas}`);
-  const totalCount = datas.totalCount;
+  // const totalCount = datas.totalCount;
+  const totalCount = 43;
   return totalCount;
 }
 // page번호 선택
 function chooseCurrentPage(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
   const datas = getCurrentPageInfoFromApi(states.currentPageNo);
-  datas.forEach((element, index) => {
-    // let item = {
-    //   addr1: element.addr1,
-    //   addr2: element.addr2,
-    //   areacode: element.areacode,
-    //   booktour: element.booktour,
-    //   cat1: element.cat1,
-    //   cat2: element.cat2,
-    //   cat3: element.cat3,
-    //   contentid: element.contentid,
-    //   contenttypeid: element.contenttypeid,
-    //   createdtime: element.createdtime,
-    //   eventstartdate: element.eventstartdate,
-    //   eventenddate: element.eventenddate,
-    //   firstimage: element.firstimage,
-    //   firstimage2: element.firstimage2,
-    //   mapx: element.mapx,
-    //   mapy: element.mapy,
-    //   mlevel: element.mlevel,
-    //   modifiedtime: element.modifiedtime,
-    //   readcount: element.readcount,
-    //   sigungucode: element.sigungucode,
-    //   tel: element.tel,
-    //   title: element.title,
-    // };
-    let item = { ...element };
-    states.currentPageList.append(item);
-  });
+  if (Array.isArray(datas)) {
+    datas.forEach((element, index) => {
+      // let item = {
+      //   addr1: element.addr1,
+      //   addr2: element.addr2,
+      //   areacode: element.areacode,
+      //   booktour: element.booktour,
+      //   cat1: element.cat1,
+      //   cat2: element.cat2,
+      //   cat3: element.cat3,
+      //   contentid: element.contentid,
+      //   contenttypeid: element.contenttypeid,
+      //   createdtime: element.createdtime,
+      //   eventstartdate: element.eventstartdate,
+      //   eventenddate: element.eventenddate,
+      //   firstimage: element.firstimage,
+      //   firstimage2: element.firstimage2,
+      //   mapx: element.mapx,
+      //   mapy: element.mapy,
+      //   mlevel: element.mlevel,
+      //   modifiedtime: element.modifiedtime,
+      //   readcount: element.readcount,
+      //   sigungucode: element.sigungucode,
+      //   tel: element.tel,
+      //   title: element.title,
+      // };
+      let item = { ...element };
+      states.currentPageList.append(item);
+    });
+  } else {
+    datas = [];
+  }
 }
 
 function changeNumOfRows(numOfRows) {
   states.numOfRows = numOfRows;
   states.totalCount = getTotalCountFromApi();
-  states.totalPageNo = states.totalCount / states.numOfRows;
-  chooseCurrentPage();
+  states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
+  // chooseCurrentPage();
 }
 
 onMounted(() => {

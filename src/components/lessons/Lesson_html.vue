@@ -118,14 +118,6 @@
     <!--- Sidebar -->
     <div class="col-md-4">
       <div class="list-group list-group-checkable d-grid gap-2 border-0 w-auto">
-        <input
-          class="list-group-item-check pe-none"
-          type="radio"
-          name="listGroupCheckableRadios"
-          id="listGroupCheckableRadios1"
-          value=""
-          checked=""
-        />
         <label
           class="list-group-item rounded-3 py-3"
           for="listGroupCheckableRadios1"
@@ -136,13 +128,6 @@
           >
         </label>
 
-        <input
-          class="list-group-item-check pe-none"
-          type="radio"
-          name="listGroupCheckableRadios"
-          id="listGroupCheckableRadios2"
-          value=""
-        />
         <label
           class="list-group-item rounded-3 py-3"
           for="listGroupCheckableRadios2"
@@ -153,13 +138,6 @@
           >
         </label>
 
-        <input
-          class="list-group-item-check pe-none"
-          type="radio"
-          name="listGroupCheckableRadios"
-          id="listGroupCheckableRadios3"
-          value=""
-        />
         <label
           class="list-group-item rounded-3 py-3"
           for="listGroupCheckableRadios3"
@@ -170,14 +148,6 @@
           >
         </label>
 
-        <input
-          class="list-group-item-check pe-none"
-          type="radio"
-          name="listGroupCheckableRadios"
-          id="listGroupCheckableRadios4"
-          value=""
-          disabled=""
-        />
         <label
           class="list-group-item rounded-3 py-3"
           for="listGroupCheckableRadios4"
@@ -323,4 +293,6 @@
 
 <script setup></script>
 
-<style></style>
+<style scoped>
+@import "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css";
+</style>
