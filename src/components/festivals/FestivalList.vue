@@ -70,42 +70,54 @@ function getFromDayWithFormat() {
   const now = new Date();
   const formats = "YYYYMMDD";
   const fromdayWithFormat = moment(now).format(formats);
+  // console.log(
+  //   ` getFromDayWithFormat() - fromdayWithFormat : ${fromdayWithFormat}`
+  // );
   return fromdayWithFormat;
 }
+
+function getCurrentPageInfoFromApi_temp(currentPageNo = 1) {
+  try {
+    return axios.get("https://dog.ceo/api/breeds/list/all");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 function getCurrentPageInfoFromApi(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
   const eventStartDate = getFromDayWithFormat();
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
-  axios({
-    method: "get",
-    url: "[https://apis.data.go.kr](https://apis.data.go.kr)/B551011/KorService/searchFestival", // 행사정보조회
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      "Access-Control-Allow-Origin": "*", // Could work and fix the previous problem, but not in all APIs
-    },
-    data: {
-      serviceKey:
-        "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg%3D%3D",
-      numOfRows: states.numOfRows, // 한페이지결과수
-      pageNo: states.currentPageNo, // 페이지번호
-      MobileOS: "ETC",
-      MobileApp: "AppTest",
-      _type: "json",
-      listYN: "Y",
-      arrange: states.arrange, // 정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)대표이미지가반드시있는정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)
-      eventStartDate: eventStartDate, // 행사시작일(형식 :YYYYMMDD)
-    },
-  })
+  const params = {
+    serviceKey: "<your service Key",
+    numOfRows: states.numOfRows, // 한페이지결과수
+    pageNo: states.currentPageNo, // 페이지번호
+    MobileOS: "ETC",
+    MobileApp: "AppTest",
+    _type: "json",
+    listYN: "Y",
+    arrange: states.arrange, // 정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)대표이미지가반드시있는정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)
+    eventStartDate: eventStartDate, // 행사시작일(형식 :YYYYMMDD)
+  };
+  // console.log(
+  //   `getCurrentPageInfoFromApi() - params : ${JSON.stringify(params)}`
+  // );
+  axios
+    .get(
+      "https://apis.data.go.kr/B551011/KorService/searchFestival", // 행사정보조회
+      { params }
+    )
     .then(function (response) {
-      console.log(`axios : ${response.data.body}`);
-      return response.data.body;
+      console.log(`axios : ${JSON.stringify(response.data)}`);
+      // return response.data.body;
     })
     .catch(function (error) {
       // https://axios-http.com/docs/handling_errors
-      console.log(error.toJSON());
+      console.log(error);
     });
 }
+
 function getTotalCountFromApi() {
   const datas = getCurrentPageInfoFromApi();
   console.log(`getTotalCountFromApi() : ${datas}`);
@@ -116,7 +128,7 @@ function getTotalCountFromApi() {
 // page번호 선택
 function chooseCurrentPage(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
-  const datas = getCurrentPageInfoFromApi(states.currentPageNo);
+  let datas = getCurrentPageInfoFromApi(states.currentPageNo);
   if (Array.isArray(datas)) {
     datas.forEach((element, index) => {
       // let item = {
