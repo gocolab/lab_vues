@@ -62,7 +62,7 @@ const states = reactive({
   currentPageNo: 1,
   arrange: "C",
   totalCount: 0,
-  totalPageNo: 0, // totalCount / numOfRows
+  totalPageNo: 0,
   currentPageList: [],
 });
 
@@ -76,21 +76,14 @@ function getFromDayWithFormat() {
   return fromdayWithFormat;
 }
 
-function getCurrentPageInfoFromApi_temp(currentPageNo = 1) {
-  try {
-    return axios.get("https://dog.ceo/api/breeds/list/all");
-  } catch (error) {
-    console.error(error);
-  }
-}
-
+// call api with current page or
 function getCurrentPageInfoFromApi(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
   const eventStartDate = getFromDayWithFormat();
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   const params = {
-    serviceKey: "<your service Key",
+    serviceKey: "<your service Key>",
     numOfRows: states.numOfRows, // 한페이지결과수
     pageNo: states.currentPageNo, // 페이지번호
     MobileOS: "ETC",
@@ -109,8 +102,18 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
       { params }
     )
     .then(function (response) {
-      console.log(`axios : ${JSON.stringify(response.data)}`);
-      // return response.data.body;
+      const datas = response.data.response;
+      let results = {};
+      console.log(`axios : ${datas.header.resultCode == "0000"}`);
+
+      if (datas.header.resultCode == "0000") {
+        // console.log(`axios : ${JSON.stringify(datas)}`);
+        states.totalCount = datas.body.totalCount;
+        states.currentPageList = datas.body.items.item;
+        states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
+      }
+
+      // return results;
     })
     .catch(function (error) {
       // https://axios-http.com/docs/handling_errors
@@ -118,13 +121,6 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
     });
 }
 
-function getTotalCountFromApi() {
-  const datas = getCurrentPageInfoFromApi();
-  console.log(`getTotalCountFromApi() : ${datas}`);
-  // const totalCount = datas.totalCount;
-  const totalCount = 43;
-  return totalCount;
-}
 // page번호 선택
 function chooseCurrentPage(currentPageNo = 1) {
   states.currentPageNo = currentPageNo;
@@ -165,13 +161,14 @@ function chooseCurrentPage(currentPageNo = 1) {
 
 function changeNumOfRows(numOfRows) {
   states.numOfRows = numOfRows;
-  states.totalCount = getTotalCountFromApi();
-  states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
+  // states.totalCount = getTotalCountFromApi();
+  // states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
   // chooseCurrentPage();
 }
 
 onMounted(() => {
-  changeNumOfRows(states.numOfRows);
+  // changeNumOfRows(states.numOfRows);
+  getCurrentPageInfoFromApi();
 });
 </script>
 
