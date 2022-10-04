@@ -92,8 +92,7 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   const params = {
-    serviceKey:
-      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
+    serviceKey: "",
     numOfRows: states.numOfRows, // 한페이지결과수
     pageNo: states.currentPageNo, // 페이지번호
     MobileOS: "ETC",

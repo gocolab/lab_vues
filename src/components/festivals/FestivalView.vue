@@ -114,8 +114,7 @@ function getDetailContent() {
   const contentid = route.params.contentid;
   const contenttypeid = route.params.contenttypeid;
   const params = {
-    serviceKey:
-      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
+    serviceKey: "",
     MobileOS: "ETC",
     MobileApp: "AppTest",
     _type: "json",
