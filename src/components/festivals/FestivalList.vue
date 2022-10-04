@@ -33,17 +33,25 @@
       </template>
     </tbody>
   </table>
+
+  <div class="d-flex align-items-center" :class="states.spiner_status">
+    <strong>Loading...</strong>
+    <div class="spinner-border ms-auto" role="status" aria-hidden="false"></div>
+  </div>
+
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item disabled">
         <a class="page-link">Previous</a>
       </li>
       <template v-for="(number, index) in states.totalPageNo" :key="index">
-        <li class="page-item">
-          <a class="page-link" @click="chooseCurrentPage(number)">{{
-            number
-          }}</a>
-        </li>
+        <template v-if="number <= 4">
+          <li class="page-item">
+            <a class="page-link" @click="getCurrentPageInfoFromApi(number)">{{
+              number
+            }}</a>
+          </li>
+        </template>
       </template>
       <li class="page-item">
         <a class="page-link" href="#">Next</a>
@@ -64,6 +72,7 @@ const states = reactive({
   totalCount: 0,
   totalPageNo: 0,
   currentPageList: [],
+  spiner_status: "visible",
 });
 
 function getFromDayWithFormat() {
@@ -83,7 +92,9 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   const params = {
-    serviceKey: "<your service Key>",
+    // serviceKey: "<your service Key>",
+    serviceKey:
+      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
     numOfRows: states.numOfRows, // 한페이지결과수
     pageNo: states.currentPageNo, // 페이지번호
     MobileOS: "ETC",
@@ -96,6 +107,7 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
   // console.log(
   //   `getCurrentPageInfoFromApi() - params : ${JSON.stringify(params)}`
   // );
+  states.spiner_status = "visible";
   axios
     .get(
       "https://apis.data.go.kr/B551011/KorService/searchFestival", // 행사정보조회
@@ -103,7 +115,6 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
     )
     .then(function (response) {
       const datas = response.data.response;
-      let results = {};
       console.log(`axios : ${datas.header.resultCode == "0000"}`);
 
       if (datas.header.resultCode == "0000") {
@@ -111,7 +122,10 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
         states.totalCount = datas.body.totalCount;
         states.currentPageList = datas.body.items.item;
         states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
+      } else {
+        alert(`${JSON.stringify(datas.header)}`);
       }
+      states.spiner_status = "invisible";
 
       // return results;
     })
@@ -121,53 +135,12 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
     });
 }
 
-// page번호 선택
-function chooseCurrentPage(currentPageNo = 1) {
-  states.currentPageNo = currentPageNo;
-  let datas = getCurrentPageInfoFromApi(states.currentPageNo);
-  if (Array.isArray(datas)) {
-    datas.forEach((element, index) => {
-      // let item = {
-      //   addr1: element.addr1,
-      //   addr2: element.addr2,
-      //   areacode: element.areacode,
-      //   booktour: element.booktour,
-      //   cat1: element.cat1,
-      //   cat2: element.cat2,
-      //   cat3: element.cat3,
-      //   contentid: element.contentid,
-      //   contenttypeid: element.contenttypeid,
-      //   createdtime: element.createdtime,
-      //   eventstartdate: element.eventstartdate,
-      //   eventenddate: element.eventenddate,
-      //   firstimage: element.firstimage,
-      //   firstimage2: element.firstimage2,
-      //   mapx: element.mapx,
-      //   mapy: element.mapy,
-      //   mlevel: element.mlevel,
-      //   modifiedtime: element.modifiedtime,
-      //   readcount: element.readcount,
-      //   sigungucode: element.sigungucode,
-      //   tel: element.tel,
-      //   title: element.title,
-      // };
-      let item = { ...element };
-      states.currentPageList.append(item);
-    });
-  } else {
-    datas = [];
-  }
-}
-
 function changeNumOfRows(numOfRows) {
   states.numOfRows = numOfRows;
-  // states.totalCount = getTotalCountFromApi();
-  // states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
-  // chooseCurrentPage();
+  // getCurrentPageInfoFromApi();
 }
 
 onMounted(() => {
-  // changeNumOfRows(states.numOfRows);
   getCurrentPageInfoFromApi();
 });
 </script>
