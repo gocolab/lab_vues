@@ -17,11 +17,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     //   },
     plugins: [vue()],
   };
-  if (command === "dev") {
-    configs.base = "/"; // for build
+  if (command == "dev") {
+    configs.base = "/project_yojulab_front"; // for build
     // base: process.env.VITE_BASE_PATH, // for build
-  } else {
-    configs.base = "/project_yojulab_front/"; // for build
+  } else if (command == "build") {
+    configs.base = "/project_yojulab_front"; // for build
     configs.build = {
       outDir: "docs",
       emptyOutDir: true,

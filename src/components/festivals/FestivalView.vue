@@ -57,7 +57,7 @@
           name=""
           class="form-control"
           id="overview"
-          rows="20"
+          rows="10"
           readonly
           v-model="states.detailCommon.overview"
         >
@@ -74,6 +74,10 @@
 <script setup>
 import axios from "axios";
 import { inject, onMounted, reactive } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
 const states = reactive({
   detailCommon: {
     contenttypeid: "",
@@ -103,14 +107,15 @@ const states = reactive({
   detailIntro: { eventstartdate: "", eventenddate: "" },
 });
 function getDetailContent() {
-  // console.log(
-  //   `getDetailContent() - contentId : ${$route.query.contentId}, ${$route.query.contentTypeId}`
-  // );
+  console.log(
+    `getDetailContent() - route.params : ${JSON.stringify(route.params)}`
+  );
 
-  const contentId = "293084"; //$route.query.contentId;
-  const contentTypeId = "15"; //$route.query.contentTypeId;
+  const contentid = route.params.contentid;
+  const contenttypeid = route.params.contenttypeid;
   const params = {
-    serviceKey: "<your service Key>",
+    serviceKey:
+      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
     MobileOS: "ETC",
     MobileApp: "AppTest",
     _type: "json",
@@ -121,8 +126,8 @@ function getDetailContent() {
     addrinfoYN: "Y",
     mapinfoYN: "Y",
     overviewYN: "Y",
-    contentId: contentId,
-    contentTypeId: contentTypeId,
+    contentId: contentid,
+    contentTypeId: contenttypeid,
   };
   axios
     .get(
@@ -131,8 +136,8 @@ function getDetailContent() {
     )
     .then(function (response) {
       const datas = response.data.response;
+      console.log(`axios : ${JSON.stringify(datas)}`);
       if (datas.header.resultCode == "0000") {
-        // console.log(`axios : ${JSON.stringify(datas)}`);
         states.detailCommon = datas.body.items.item[0];
         console.log(`axios : ${JSON.stringify(states.detailCommon)}`);
       } else {

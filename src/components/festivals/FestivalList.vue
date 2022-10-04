@@ -16,9 +16,9 @@
           @click="
             $router.push({
               name: 'FestivalView',
-              query: {
-                contentId: item.contentId,
-                contentTypeId: item.contentTypeId,
+              params: {
+                contentid: item.contentid,
+                contenttypeid: item.contenttypeid,
               },
             })
           "
@@ -92,7 +92,8 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   const params = {
-    serviceKey: "<your service Key>",
+    serviceKey:
+      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
     numOfRows: states.numOfRows, // 한페이지결과수
     pageNo: states.currentPageNo, // 페이지번호
     MobileOS: "ETC",
