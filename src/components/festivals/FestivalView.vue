@@ -9,7 +9,7 @@
           id="festivalName"
           v-model="states.detailCommon.title"
         />
-        <label for="festivalName">축제명</label>
+        <label class="form-label" for="festivalName">축제명</label>
       </div>
       <div class="form-floating mb-3">
         <input
@@ -19,7 +19,7 @@
           id="eventstartdate"
           v-model="states.detailIntro.eventstartdate"
         />
-        <label for="eventstartdate">시작일</label>
+        <label class="form-label" for="eventstartdate">시작일</label>
       </div>
       <div class="form-floating mb-3">
         <input
@@ -29,7 +29,7 @@
           id="eventenddate"
           v-model="states.detailIntro.eventenddate"
         />
-        <label for="eventenddate">종료일</label>
+        <label class="form-label" for="eventenddate">종료일</label>
       </div>
       <div class="form-floating mb-3">
         <input
@@ -39,7 +39,7 @@
           id="tel"
           v-model="states.detailCommon.tel"
         />
-        <label for="tel">연락처</label>
+        <label class="form-label" for="tel">연락처</label>
       </div>
       <div class="form-floating mb-3">
         <input
@@ -49,15 +49,15 @@
           id="addr1"
           v-model="states.detailCommon.addr1"
         />
-        <label for="addr1">지역</label>
+        <label class="form-label" for="addr1">지역</label>
       </div>
-      <div class="form-floating mb-3">
-        <label for="overview">상세 정보</label>
+      <div class="form mb-3">
+        <label class="form-label" for="overview">상세 정보</label>
         <textarea
           name=""
+          class="form-control"
           id="overview"
-          cols="30"
-          rows="10"
+          rows="20"
           readonly
           v-model="states.detailCommon.overview"
         >
@@ -65,8 +65,8 @@
       </div>
     </div>
     <div class="col-6">
-      <img v-src="states.detailCommon.firstimage" alt="" />
-      <img v-src="states.detailCommon.firstimage2" alt="" />
+      <img alt="" :src="states.detailCommon.firstimage" />
+      <img alt="" :src="states.detailCommon.firstimage2" />
     </div>
   </div>
 </template>
@@ -75,8 +75,32 @@
 import axios from "axios";
 import { inject, onMounted, reactive } from "vue";
 const states = reactive({
-  detailCommon: {},
-  detailIntro: {},
+  detailCommon: {
+    contenttypeid: "",
+    booktour: "",
+    createdtime: "",
+    homepage: "",
+    modifiedtime: "",
+    tel: "",
+    telname: "",
+    title: "",
+    firstimage: "",
+    firstimage2: "",
+    areacode: "",
+    sigungucode: "",
+    cat1: "",
+    cat2: "",
+    cat3: "",
+    addr1: "",
+    addr2: "",
+    zipcode: "",
+    mapx: "",
+    mapy: "",
+    mlevel: "",
+    overview: "",
+    contentid: "",
+  },
+  detailIntro: { eventstartdate: "", eventenddate: "" },
 });
 function getDetailContent() {
   // console.log(
@@ -111,15 +135,15 @@ function getDetailContent() {
       const datas = response.data.response;
       if (datas.header.resultCode == "0000") {
         // console.log(`axios : ${JSON.stringify(datas)}`);
-        states.detailCommon = { ...datas.items.item };
-        console.log(`axios : ${states.detailCommon}`);
+        states.detailCommon = datas.body.items.item[0];
+        console.log(`axios : ${JSON.stringify(states.detailCommon)}`);
       } else {
         alert(`${JSON.stringify(datas.header)}`);
       }
     })
     .catch(function (error) {
       // https://axios-http.com/docs/handling_errors
-      console.log(error.toJSON());
+      console.log(error);
     });
 }
 onMounted(() => {
