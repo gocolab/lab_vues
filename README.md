@@ -12,4 +12,6 @@ $ npm run dev
 - web word2vec : https://github.com/danielvarga/word2vec-web-visualization
 - [글자수세기](https://lettercounter.net/)
 - [Convert VCF to XLS Online Free](https://www.convert-doc.com/converter/vcf-to-xls)  
-- toonify : https://github.com/justinpinkney/toonify
+- toonify 
+  + https://github.com/justinpinkney/toonify
+  + https://github.com/udaykondreddy/toonify-yourself
