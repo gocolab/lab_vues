@@ -15,3 +15,4 @@ $ npm run dev
 - toonify 
   + https://github.com/justinpinkney/toonify
   + https://github.com/udaykondreddy/toonify-yourself
+- For Transltor : ?
