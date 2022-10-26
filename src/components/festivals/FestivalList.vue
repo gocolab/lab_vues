@@ -1,4 +1,21 @@
 <template>
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <button type="submit" class="btn btn-primary" @click="">Get Data from API</button>
+    </div>
+    <div class="col-7 row justify-content-end">
+      <div class="col-9">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="검색어"
+        />
+      </div>
+      <div class="col-3">
+        <button type="submit" class="btn btn-primary" @click="search">검색어</button>
+      </div>
+    </div>
+  </div>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -16,7 +33,7 @@
           @click="
             $router.push({
               name: 'FestivalView',
-              params: {
+              // params: {
                 contentid: item.contentid,
                 contenttypeid: item.contenttypeid,
               },
