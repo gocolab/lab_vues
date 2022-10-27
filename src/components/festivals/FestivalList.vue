@@ -1,13 +1,14 @@
 <template>
   <div class="row justify-content-between">
-    <div class="col-5 row">
-      <div class="col-5">
+    <div class="col-5 row justify-content-start">
+      <div class="col-4">
         <input type="date" class="form-control" v-model="states.fromday" />
       </div>
       <div class="col">
         <button type="submit" class="btn btn-primary" @click="getDataFromApi">
           Get Data from API
         </button>
+        Totel : {{ states.totalCount }}
       </div>
     </div>
     <div class="col-7 row justify-content-end">
@@ -43,7 +44,7 @@
             })
           "
         >
-          <th scope="row">{{ (index) + 1 }}</th>
+          <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.title }}</td>
           <td>{{ item.eventstartdate }}</td>
           <td>{{ item.eventenddate }}</td>
