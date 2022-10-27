@@ -1,18 +1,21 @@
 <template>
   <div class="row justify-content-between">
-    <div class="col-4">
-      <button type="submit" class="btn btn-primary" @click="">Get Data from API</button>
+    <div class="col-5 row">
+      <div class="col-5">
+        <input type="date" class="form-control" v-model="states.fromday" />
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary" @click="getDataFromApi">
+          Get Data from API
+        </button>
+      </div>
     </div>
     <div class="col-7 row justify-content-end">
-      <div class="col-9">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="검색어"
-        />
-      </div>
-      <div class="col-3">
-        <button type="submit" class="btn btn-primary" @click="search">검색어</button>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="검색어" />
+        <button type="submit" class="btn btn-outline-primary" @click="search">
+          검색어
+        </button>
       </div>
     </div>
   </div>
@@ -33,14 +36,14 @@
           @click="
             $router.push({
               name: 'FestivalView',
-              // params: {
+              params: {
                 contentid: item.contentid,
                 contenttypeid: item.contenttypeid,
               },
             })
           "
         >
-          <th scope="row">{{ index + 1 }}</th>
+          <th scope="row">{{ (index) + 1 }}</th>
           <td>{{ item.title }}</td>
           <td>{{ item.eventstartdate }}</td>
           <td>{{ item.eventenddate }}</td>
@@ -64,7 +67,7 @@
       <template v-for="(number, index) in states.totalPageNo" :key="index">
         <template v-if="number <= 4">
           <li class="page-item">
-            <a class="page-link" @click="getCurrentPageInfoFromApi(number)">{{
+            <a class="page-link" @click="getCurrentPageWithItemList(index)">{{
               number
             }}</a>
           </li>
@@ -79,23 +82,22 @@
 
 <script setup>
 import { inject, onMounted, reactive } from "vue";
-import moment from "moment";
 import axios from "axios";
 
 const states = reactive({
-  numOfRows: 10,
-  currentPageNo: 1,
-  arrange: "C",
   totalCount: 0,
   totalPageNo: 0,
+  numOfRow: 10,
+  itemList: [],
   currentPageList: [],
-  spiner_status: "visible",
+  spiner_status: "invisible",
+  fromday: "",
 });
 
-function getFromDayWithFormat() {
-  const now = new Date();
-  const formats = "YYYYMMDD";
-  const fromdayWithFormat = moment(now).format(formats);
+function getFromDayWithFormat(plusDate = 20) {
+  const date = new Date();
+  date.setDate(date.getDate() + plusDate);
+  const fromdayWithFormat = date.toISOString().split("T")[0];
   // console.log(
   //   ` getFromDayWithFormat() - fromdayWithFormat : ${fromdayWithFormat}`
   // );
@@ -103,24 +105,23 @@ function getFromDayWithFormat() {
 }
 
 // call api with current page or
-function getCurrentPageInfoFromApi(currentPageNo = 1) {
-  states.currentPageNo = currentPageNo;
-  const eventStartDate = getFromDayWithFormat();
+function getDataFromApi(pageNo = 1, numOfRow = 1) {
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
-  const params = {
-    serviceKey: "",
-    numOfRows: states.numOfRows, // 한페이지결과수
-    pageNo: states.currentPageNo, // 페이지번호
+  let params = {
+    serviceKey:
+      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
+    numOfRows: numOfRow, // 한페이지결과수
+    pageNo: pageNo, // 페이지번호
     MobileOS: "ETC",
     MobileApp: "AppTest",
     _type: "json",
     listYN: "Y",
-    arrange: states.arrange, // 정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)대표이미지가반드시있는정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)
-    eventStartDate: eventStartDate, // 행사시작일(형식 :YYYYMMDD)
+    arrange: "C", // 정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)대표이미지가반드시있는정렬(O=제목순, P=조회순, Q=수정일순, R=생성일순)
+    eventStartDate: states.fromday, // 행사시작일(형식 :YYYYMMDD)
   };
   // console.log(
-  //   `getCurrentPageInfoFromApi() - params : ${JSON.stringify(params)}`
+  //   `getDataFromApi() - params : ${JSON.stringify(params)}`
   // );
   states.spiner_status = "visible";
   axios
@@ -135,8 +136,36 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
       if (datas.header.resultCode == "0000") {
         // console.log(`axios : ${JSON.stringify(datas)}`);
         states.totalCount = datas.body.totalCount;
-        states.currentPageList = datas.body.items.item;
-        states.totalPageNo = Math.ceil(states.totalCount / states.numOfRows);
+        getAllDatafromAPI(params);
+      } else {
+        alert(`${JSON.stringify(datas.header)}`);
+      }
+      // return results;
+    })
+    .catch(function (error) {
+      // https://axios-http.com/docs/handling_errors
+      console.log(error);
+      states.spiner_status = "invisible";
+    });
+}
+
+function getAllDatafromAPI(params) {
+  states.spiner_status = "visible";
+  params.numOfRows = states.totalCount;
+  axios
+    .get(
+      "https://apis.data.go.kr/B551011/KorService/searchFestival", // 행사정보조회
+      { params }
+    )
+    .then(function (response) {
+      const datas = response.data.response;
+      console.log(`axios : ${datas.header.resultCode == "0000"}`);
+
+      if (datas.header.resultCode == "0000") {
+        // console.log(`getAllDatafromAPI() : ${JSON.stringify(datas)}`);
+        states.totalCount = filteringAllDataWithWords(datas.body.items.item);
+        states.totalPageNo = Math.ceil(states.totalCount / states.numOfRow);
+        getCurrentPageWithItemList();
       } else {
         alert(`${JSON.stringify(datas.header)}`);
       }
@@ -147,16 +176,40 @@ function getCurrentPageInfoFromApi(currentPageNo = 1) {
     .catch(function (error) {
       // https://axios-http.com/docs/handling_errors
       console.log(error);
+      states.spiner_status = "invisible";
     });
 }
 
-function changeNumOfRows(numOfRows) {
-  states.numOfRows = numOfRows;
-  // getCurrentPageInfoFromApi();
+function filteringAllDataWithWords(items) {
+  states.itemList = items.filter((item, index) => {
+    return item.title.includes("축제");
+  });
+  const items_length = states.itemList.length;
+
+  return items_length;
+}
+function changeNumOfRow(numOfRow) {
+  return numOfRow;
+}
+
+function getCurrentPageWithItemList(pageNo = 0) {
+  const index_start = pageNo * states.numOfRow;
+  const index_end = index_start + states.numOfRow;
+  console.log(
+    `getCurrentPageWithItemList() index_start: ${index_start}, index_end : ${index_end}`
+  );
+  let currentRows = [];
+  states.itemList.forEach((item, index) => {
+    if (index >= index_start && index < index_end) {
+      currentRows.push(item);
+    }
+  });
+  states.currentPageList = currentRows;
 }
 
 onMounted(() => {
-  getCurrentPageInfoFromApi();
+  states.fromday = getFromDayWithFormat();
+  states.numOfRows = changeNumOfRow(10);
 });
 </script>
 
