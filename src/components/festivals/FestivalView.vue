@@ -1,4 +1,22 @@
 <template>
+  <div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      @click="
+        $router.push({
+          name: 'FestivalList',
+        })
+      "
+    >
+      To List
+    </button>
+  </div>
+  <div class="d-flex align-items-center" :class="states.spiner_status">
+    <strong>Loading...</strong>
+    <div class="spinner-border ms-auto" role="status" aria-hidden="false"></div>
+  </div>
+
   <div class="row">
     <div class="col-6">
       <div class="form-floating mb-3">
@@ -79,6 +97,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const states = reactive({
+  spiner_status: "invisible",
   detailCommon: {
     contenttypeid: "",
     booktour: "",
@@ -114,7 +133,8 @@ function getDetailContent() {
   const contentid = route.params.contentid;
   const contenttypeid = route.params.contenttypeid;
   const params = {
-    serviceKey: "",
+    serviceKey:
+      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
     MobileOS: "ETC",
     MobileApp: "AppTest",
     _type: "json",
@@ -128,6 +148,8 @@ function getDetailContent() {
     contentId: contentid,
     contentTypeId: contenttypeid,
   };
+  states.spiner_status = "visible";
+
   axios
     .get(
       "https://apis.data.go.kr/B551011/KorService/detailCommon", //  행사상세정보조회
@@ -142,10 +164,12 @@ function getDetailContent() {
       } else {
         alert(`${JSON.stringify(datas.header)}`);
       }
+      states.spiner_status = "invisible";
     })
     .catch(function (error) {
       // https://axios-http.com/docs/handling_errors
       console.log(error);
+      states.spiner_status = "invisible";
     });
 }
 onMounted(() => {

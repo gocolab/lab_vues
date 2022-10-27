@@ -20,6 +20,11 @@
       </div>
     </div>
   </div>
+  <div class="d-flex align-items-center" :class="states.spiner_status">
+    <strong>Loading...</strong>
+    <div class="spinner-border ms-auto" role="status" aria-hidden="false"></div>
+  </div>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -54,11 +59,6 @@
       </template>
     </tbody>
   </table>
-
-  <div class="d-flex align-items-center" :class="states.spiner_status">
-    <strong>Loading...</strong>
-    <div class="spinner-border ms-auto" role="status" aria-hidden="false"></div>
-  </div>
 
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
