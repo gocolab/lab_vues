@@ -102,8 +102,7 @@ const states = reactive({
   detailIntro: {},
 });
 
-const serviceKey =
-  "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==";
+const serviceKey = "";
 
 //  행사상세정보조회
 function getDetailCommon() {

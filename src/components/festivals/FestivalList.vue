@@ -124,13 +124,13 @@ function getFromDayWithFormat(plusDate = 20) {
   return fromdayWithFormat;
 }
 
+const serviceKey = "";
 // call api with current page or
 function getDataFromApi(pageNo = 1, numOfRow = 1) {
   // GET request for remote image in node.js
   // Refer API : https://www.data.go.kr/iim/api/selectAPIAcountView.do
   let params = {
-    serviceKey:
-      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
+    serviceKey: serviceKey,
     numOfRows: numOfRow, // 한페이지결과수
     pageNo: pageNo, // 페이지번호
     MobileOS: "ETC",
