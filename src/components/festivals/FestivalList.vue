@@ -49,7 +49,9 @@
             })
           "
         >
-          <th scope="row">{{ index + 1 }}</th>
+          <th scope="row">
+            {{ index + 1 + states.currentPageNo * states.numOfRow }}
+          </th>
           <td>{{ item.title }}</td>
           <td>{{ item.eventstartdate }}</td>
           <td>{{ item.eventenddate }}</td>
@@ -82,18 +84,35 @@
 </template>
 
 <script setup>
-import { inject, onMounted, reactive } from "vue";
+import { inject, onMounted, reactive, onUnmounted } from "vue";
 import axios from "axios";
 
-const states = reactive({
+let states = reactive({
   totalCount: 0,
   totalPageNo: 0,
   numOfRow: 10,
   itemList: [],
   currentPageList: [],
+  currentPageNo: 0,
   spiner_status: "invisible",
   fromday: "",
 });
+
+const stores = inject("stores");
+// check null with object
+function isEmptyObject(obj) {
+  const condition = Object.keys(obj).length === 0 && obj.constructor === Object;
+  // console.log(`condition : ${condition}`);
+  return condition;
+}
+
+console.log(`stores.festivalLists : ${stores.festivalLists}`);
+if (!isEmptyObject(stores.festivalLists)) {
+  // console.log(
+  //   `states - ${states.itemList.length}, ${states.currentPageList.length}, ${states.fromday}`
+  // );
+  states = { ...stores.festivalLists };
+}
 
 function getFromDayWithFormat(plusDate = 20) {
   const date = new Date();
@@ -194,6 +213,7 @@ function changeNumOfRow(numOfRow) {
 }
 
 function getCurrentPageWithItemList(pageNo = 0) {
+  states.currentPageNo = pageNo;
   const index_start = pageNo * states.numOfRow;
   const index_end = index_start + states.numOfRow;
   console.log(
@@ -209,8 +229,19 @@ function getCurrentPageWithItemList(pageNo = 0) {
 }
 
 onMounted(() => {
+  // console.log(
+  //   `onMounted() : ${states.itemList.length}, ${stores.festivalLists.itemList.length}`
+  // );
+
   states.fromday = getFromDayWithFormat();
   states.numOfRows = changeNumOfRow(10);
+});
+
+onUnmounted(() => {
+  stores.festivalLists = { ...states };
+  // console.log(
+  //   `onUnmounted() : ${states.itemList.length}, ${stores.festivalLists.itemList.length}`
+  // );
 });
 </script>
 

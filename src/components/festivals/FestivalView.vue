@@ -98,43 +98,23 @@ const route = useRoute();
 
 const states = reactive({
   spiner_status: "invisible",
-  detailCommon: {
-    contenttypeid: "",
-    booktour: "",
-    createdtime: "",
-    homepage: "",
-    modifiedtime: "",
-    tel: "",
-    telname: "",
-    title: "",
-    firstimage: "",
-    firstimage2: "",
-    areacode: "",
-    sigungucode: "",
-    cat1: "",
-    cat2: "",
-    cat3: "",
-    addr1: "",
-    addr2: "",
-    zipcode: "",
-    mapx: "",
-    mapy: "",
-    mlevel: "",
-    overview: "",
-    contentid: "",
-  },
-  detailIntro: { eventstartdate: "", eventenddate: "" },
+  detailCommon: {},
+  detailIntro: {},
 });
-function getDetailContent() {
-  console.log(
-    `getDetailContent() - route.params : ${JSON.stringify(route.params)}`
-  );
+
+const serviceKey =
+  "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==";
+
+//  행사상세정보조회
+function getDetailCommon() {
+  // console.log(
+  //   `getDetailCommon() - route.params : ${JSON.stringify(route.params)}`
+  // );
 
   const contentid = route.params.contentid;
   const contenttypeid = route.params.contenttypeid;
   const params = {
-    serviceKey:
-      "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==",
+    serviceKey: serviceKey,
     MobileOS: "ETC",
     MobileApp: "AppTest",
     _type: "json",
@@ -157,10 +137,10 @@ function getDetailContent() {
     )
     .then(function (response) {
       const datas = response.data.response;
-      console.log(`axios : ${JSON.stringify(datas)}`);
+      // console.log(`axios : ${JSON.stringify(datas)}`);
       if (datas.header.resultCode == "0000") {
-        states.detailCommon = datas.body.items.item[0];
-        console.log(`axios : ${JSON.stringify(states.detailCommon)}`);
+        states.detailCommon = { ...datas.body.items.item[0] };
+        // console.log(`axios : ${JSON.stringify(states.detailCommon)}`);
       } else {
         alert(`${JSON.stringify(datas.header)}`);
       }
@@ -172,8 +152,43 @@ function getDetailContent() {
       states.spiner_status = "invisible";
     });
 }
+
+//  소개정보조회
+function getDetailIntro() {
+  const contentid = route.params.contentid;
+  const contenttypeid = route.params.contenttypeid;
+  const params = {
+    serviceKey: serviceKey,
+    MobileOS: "ETC",
+    MobileApp: "AppTest",
+    _type: "json",
+    contentId: contentid,
+    contentTypeId: contenttypeid,
+  };
+
+  axios
+    .get("https://apis.data.go.kr/B551011/KorService/detailIntro", { params })
+    .then(function (response) {
+      const datas = response.data.response;
+      // console.log(`axios : ${JSON.stringify(datas)}`);
+      if (datas.header.resultCode == "0000") {
+        states.detailIntro = { ...datas.body.items.item[0] };
+        // console.log(`axios : ${JSON.stringify(states.detailIntro)}`);
+      } else {
+        alert(`${JSON.stringify(datas.header)}`);
+      }
+      states.spiner_status = "invisible";
+    })
+    .catch(function (error) {
+      // https://axios-http.com/docs/handling_errors
+      console.log(error);
+      states.spiner_status = "invisible";
+    });
+}
+
 onMounted(() => {
-  getDetailContent();
+  getDetailCommon();
+  getDetailIntro();
 });
 </script>
 

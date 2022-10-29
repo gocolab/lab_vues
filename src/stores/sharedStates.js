@@ -7,4 +7,6 @@ const translatestates = reactive({
   byMe: "",
 });
 
-export default { translatestates };
+const festivalLists = reactive({});
+
+export default { translatestates, festivalLists };
