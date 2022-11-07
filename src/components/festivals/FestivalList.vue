@@ -106,12 +106,12 @@ function isEmptyObject(obj) {
   return condition;
 }
 
-console.log(`stores.festivalLists : ${stores.festivalLists}`);
-if (!isEmptyObject(stores.festivalLists)) {
+// console.log(`stores.festivalStates : ${stores.festivalStates}`);
+if (!isEmptyObject(stores.festivalStates)) {
   // console.log(
   //   `states - ${states.itemList.length}, ${states.currentPageList.length}, ${states.fromday}`
   // );
-  states = { ...stores.festivalLists };
+  states = { ...stores.festivalStates };
 }
 
 function getFromDayWithFormat(plusDate = 20) {
@@ -223,15 +223,19 @@ function getCurrentPageWithItemList(pageNo = 0) {
   let currentRows = [];
   states.itemList.forEach((item, index) => {
     if (index >= index_start && index < index_end) {
+      console.log(`currentRows.push item: ${item.title}`);
       currentRows.push(item);
     }
   });
   states.currentPageList = currentRows;
+  // console.log(
+  //   `states.currentPageList[index_end].title: ${states.currentPageList[index_end].title}`
+  // );
 }
 
 onMounted(() => {
   // console.log(
-  //   `onMounted() : ${states.itemList.length}, ${stores.festivalLists.itemList.length}`
+  //   `onMounted() : ${states.itemList.length}, ${stores.festivalStates.itemList.length}`
   // );
 
   states.fromday = getFromDayWithFormat();
@@ -239,9 +243,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  stores.festivalLists = { ...states };
+  stores.festivalStates = { ...states };
   // console.log(
-  //   `onUnmounted() : ${states.itemList.length}, ${stores.festivalLists.itemList.length}`
+  //   `onUnmounted() : ${states.itemList.length}, ${stores.festivalStates.itemList.length}`
   // );
 });
 </script>
