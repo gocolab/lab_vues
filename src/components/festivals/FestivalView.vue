@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-between">
+    <div class="h3">
+      {{ states.detailCommon.title }}
+    </div>
     <button
       type="submit"
       class="btn btn-primary"
@@ -19,72 +22,39 @@
 
   <div class="row">
     <div class="col-6">
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          readonly
-          class="form-control-plaintext"
-          id="festivalName"
-          v-model="states.detailCommon.title"
-        />
-        <label class="form-label" for="festivalName">축제명</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          readonly
-          class="form-control-plaintext"
-          id="eventstartdate"
-          v-model="states.detailIntro.eventstartdate"
-        />
-        <label class="form-label" for="eventstartdate">시작일</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          readonly
-          class="form-control-plaintext"
-          id="eventenddate"
-          v-model="states.detailIntro.eventenddate"
-        />
-        <label class="form-label" for="eventenddate">종료일</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          readonly
-          class="form-control-plaintext"
-          id="tel"
-          v-model="states.detailCommon.tel"
-        />
-        <label class="form-label" for="tel">연락처</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          readonly
-          class="form-control-plaintext"
-          id="addr1"
-          v-model="states.detailCommon.addr1"
-        />
-        <label class="form-label" for="addr1">지역</label>
-      </div>
-      <div class="form mb-3">
-        <label class="form-label" for="overview">상세 정보</label>
-        <textarea
-          name=""
-          class="form-control"
-          id="overview"
-          rows="10"
-          readonly
-          v-model="states.detailCommon.overview"
-        >
-        </textarea>
-      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="">시작일</td>
+            <td class="h6">{{ states.detailIntro.eventstartdate }}</td>
+          </tr>
+          <tr>
+            <td class="">종료일</td>
+            <td class="h6">{{ states.detailIntro.eventenddate }}</td>
+          </tr>
+          <tr>
+            <td class="">연락처</td>
+            <td class="h6">{{ states.detailCommon.tel }}</td>
+          </tr>
+          <tr>
+            <td class="">지역</td>
+            <td class="h6">{{ states.detailCommon.addr1 }}</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">상세 정보</td>
+            <td class="h6">
+              <div>{{ states.detailCommon.overview }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-6">
-      <img alt="" :src="states.detailCommon.firstimage" />
-      <img alt="" :src="states.detailCommon.firstimage2" />
+      <img
+        alt=""
+        class="rounded img-fluid"
+        :src="states.detailCommon.firstimage"
+      />
     </div>
   </div>
 </template>
@@ -102,8 +72,7 @@ const states = reactive({
   detailIntro: {},
 });
 
-const serviceKey =
-  "BoygPZjC27pxm92hSposjnSob2u36vziS1rzIzxkrL9QxmlhB0SMARwLfNlBE3wrE7nnw34zLmmv0a6amvW4xg==";
+const serviceKey = "";
 
 //  행사상세정보조회
 function getDetailCommon() {
