@@ -40,10 +40,20 @@ const LessonsLesson = () => {
   return import("../components/lessons/Lesson_html.vue");
 };
 
+// Polls
+const PollsPollOnePage = () => {
+  return import("../components/polls/PollOnePage.vue");
+};
+
 const NotFound = defineComponent({
   template: "<div>Not Found</div>",
 });
 const routes = [
+  {
+    path: base_path + "/PollsPollOnePage",
+    component: PollsPollOnePage,
+    name: "PollsPollOnePage",
+  },
   {
     path: base_path + "/LessonsToyProjectList",
     component: LessonsToyProjectList,
