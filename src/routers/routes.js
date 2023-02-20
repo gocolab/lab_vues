@@ -32,6 +32,11 @@ const TranslationMain = () => {
   return import("../components/translation/Main.vue");
 };
 
+// Coding Test List
+const CodingTestMain = () => {
+  return import("../components/codingtest/CodingTestMain.vue");
+};
+
 // Lessons List
 const LessonsList = () => {
   return import("../components/lessons/LessonList_html.vue");
@@ -49,6 +54,11 @@ const NotFound = defineComponent({
   template: "<div>Not Found</div>",
 });
 const routes = [
+  {
+    path: base_path + "/CodingTestMain",
+    component: CodingTestMain,
+    name: "CodingTestMain",
+  },
   {
     path: base_path + "/PollsPollOnePage",
     component: PollsPollOnePage,

@@ -29,6 +29,15 @@
             <button
               class="btn btn-link nav-link"
               aria-current="page"
+              @click="$router.push({ name: 'CodingTestMain' })"
+            >
+              <i class="bi bi-building"></i>코딩 테스트
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="btn btn-link nav-link"
+              aria-current="page"
               @click="$router.push({ name: 'LessonsList' })"
             >
               <i class="bi bi-building"></i>강의들
