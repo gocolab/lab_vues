@@ -1,0 +1,10 @@
+Entity Framework,Biz,Publishing,Vue Templates,Controller Framework,Model,Security Features,Databases
+Java,Board,Html,Razor,ASP.NET MVC,"JPA, Hibernate",Authentication,MySQL
+PHP,Poll,CSS,JSP,Spring,Laravel Eloquent,Authorization,MongoDB
+Python,Shopping,JS,Smarty,Laravel,Django ORM,CORS,PostgreSQL
+Ruby on Rails,Community,Ajax,Django,Django,ActiveRecord,OAuth,
+Node.js,HR,jQuery,ERB,ActionController,Mongoose,JSON Web Tokens (JWT),
+React,MES,Bootstrap,EJS,Express.js,Redux,,
+Angular,Academy,,JSX,React Router,RxJS,,
+Vue.js,,,Angular Templates,Angular Router,Vuex,,
+Vue.js,,,Vue Templates,Vue Router,,,

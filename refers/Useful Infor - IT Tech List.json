@@ -1,0 +1,147 @@
+{
+    "schema": {
+        "fields": [
+            {
+                "name": "index",
+                "type": "integer"
+            },
+            {
+                "name": "Entity Framework",
+                "type": "string"
+            },
+            {
+                "name": "Biz",
+                "type": "string"
+            },
+            {
+                "name": "Publishing",
+                "type": "string"
+            },
+            {
+                "name": "Vue Templates",
+                "type": "string"
+            },
+            {
+                "name": "Controller Framework",
+                "type": "string"
+            },
+            {
+                "name": "Model",
+                "type": "string"
+            },
+            {
+                "name": "Security Features",
+                "type": "string"
+            },
+            {
+                "name": "Databases",
+                "type": "string"
+            }
+        ],
+        "primaryKey": [
+            "index"
+        ],
+        "pandas_version": "1.4.0"
+    },
+    "data": [
+        {
+            "index": 0,
+            "Entity Framework": "Java",
+            "Biz": "Board",
+            "Publishing": "Html",
+            "Vue Templates": "Razor",
+            "Controller Framework": "ASP.NET MVC",
+            "Model": "JPA, Hibernate",
+            "Security Features": "Authentication",
+            "Databases": "MySQL"
+        },
+        {
+            "index": 1,
+            "Entity Framework": "PHP",
+            "Biz": "Poll",
+            "Publishing": "CSS",
+            "Vue Templates": "JSP",
+            "Controller Framework": "Spring",
+            "Model": "Laravel Eloquent",
+            "Security Features": "Authorization",
+            "Databases": "MongoDB"
+        },
+        {
+            "index": 2,
+            "Entity Framework": "Python",
+            "Biz": "Shopping",
+            "Publishing": "JS",
+            "Vue Templates": "Smarty",
+            "Controller Framework": "Laravel",
+            "Model": "Django ORM",
+            "Security Features": "CORS",
+            "Databases": "PostgreSQL"
+        },
+        {
+            "index": 3,
+            "Entity Framework": "Ruby on Rails",
+            "Biz": "Community",
+            "Publishing": "Ajax",
+            "Vue Templates": "Django",
+            "Controller Framework": "Django",
+            "Model": "ActiveRecord",
+            "Security Features": "OAuth",
+            "Databases": null
+        },
+        {
+            "index": 4,
+            "Entity Framework": "Node.js",
+            "Biz": "HR",
+            "Publishing": "jQuery",
+            "Vue Templates": "ERB",
+            "Controller Framework": "ActionController",
+            "Model": "Mongoose",
+            "Security Features": "JSON Web Tokens (JWT)",
+            "Databases": null
+        },
+        {
+            "index": 5,
+            "Entity Framework": "React",
+            "Biz": "MES",
+            "Publishing": "Bootstrap",
+            "Vue Templates": "EJS",
+            "Controller Framework": "Express.js",
+            "Model": "Redux",
+            "Security Features": null,
+            "Databases": null
+        },
+        {
+            "index": 6,
+            "Entity Framework": "Angular",
+            "Biz": "Academy",
+            "Publishing": null,
+            "Vue Templates": "JSX",
+            "Controller Framework": "React Router",
+            "Model": "RxJS",
+            "Security Features": null,
+            "Databases": null
+        },
+        {
+            "index": 7,
+            "Entity Framework": "Vue.js",
+            "Biz": null,
+            "Publishing": null,
+            "Vue Templates": "Angular Templates",
+            "Controller Framework": "Angular Router",
+            "Model": "Vuex",
+            "Security Features": null,
+            "Databases": null
+        },
+        {
+            "index": 8,
+            "Entity Framework": "Vue.js",
+            "Biz": null,
+            "Publishing": null,
+            "Vue Templates": "Vue Templates",
+            "Controller Framework": "Vue Router",
+            "Model": null,
+            "Security Features": null,
+            "Databases": null
+        }
+    ]
+}
