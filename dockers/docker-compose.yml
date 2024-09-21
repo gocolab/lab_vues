@@ -1,0 +1,8 @@
+services:
+  app:
+    image: node:18
+    ports:
+      - "3000:3000" # Vite의 기본 포트
+    command: sleep infinity       
+
+  # optional: 추가적인 서비스가 필요할 경우 추가
